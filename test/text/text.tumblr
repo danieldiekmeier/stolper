@@ -1,0 +1,8 @@
+{block:Posts}
+  {block:Text}
+    {block:Title}
+      <h1>{Title}</h1>
+    {/block:Title}
+    {Body}
+  {/block:Text}
+{/block:Posts}
