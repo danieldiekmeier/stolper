@@ -1,0 +1,8 @@
+{block:Posts}
+  {block:Photo}
+    <img src="{PhotoURL-500}">
+    {block:Caption}
+      <p>{Caption}</p>
+    {/block:Caption}
+  {/block:Photo}
+{/block:Posts}

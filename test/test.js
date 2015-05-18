@@ -30,7 +30,6 @@ describe('Stolper', function(){
       };
 
       extend(dummycontent.posts[0], test.extend);
-      console.log(dummycontent);
 
       it('should work ' + test.d, function(done) {
 
@@ -48,6 +47,44 @@ describe('Stolper', function(){
           });
         });
       });
+    });
+  });
+
+  describe('rendering of photo posts', function(){
+    var tests = [
+      {d: 'with caption', extend: {caption: 'Lorem Ipsum Dolor'}, expect: '<img src="500.jpg"> <p>Lorem Ipsum Dolor</p>'},
+      {d: 'without captopn', extend: {}, expect: '<img src="500.jpg">'}
+    ];
+
+    tests.forEach(function(test){
+
+      var dummycontent = {
+        'posts': [{
+          'type': 'photo',
+          'photourl-500': '500.jpg'
+        }]
+      };
+
+      extend(dummycontent.posts[0], test.extend);
+
+      it('should work ' + test.d, function(done){
+
+        fs.readFile('./test/photo/photo.tumblr', {encoding: 'utf8'}, function(err, template) {
+          if (err) throw err;
+
+          stolper(template, dummycontent, function(html) {
+
+            assert.equal(
+              minify(html, minifyOptions),
+              minify(test.expect, minifyOptions)
+            );
+            done();
+
+          });
+        });
+
+      });
+
     });
   });
 });
